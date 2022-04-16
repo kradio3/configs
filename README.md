@@ -5,6 +5,10 @@ git clone --recursive  https://github.com/kradio3/vim-config.git ~/.vim
 cd ~/.vim && ./install.sh
 ```
 
+## Install vim-plug plugins
+```:PlugInstall```
+
+
 ## HotKeys
 * ``` <Ctrl>-n ``` - Toggle NERDTree
 * ``` <F7> ``` - Format code

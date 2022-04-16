@@ -5,7 +5,24 @@ set expandtab
 set shiftwidth=2
 set softtabstop=2
 set noswapfile
-execute pathogen#infect()
+
+call plug#begin('~/.vim/plugged')
+
+Plug 'kien/ctrlp.vim'
+Plug 'Valloric/MatchTagAlways'
+Plug 'preservim/nerdtree'
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'vim-syntastic/syntastic'
+Plug 'pangloss/vim-javascript'
+Plug 'MaxMEllon/vim-jsx-pretty'
+Plug 'peitalin/vim-jsx-typescript' 
+Plug 'leafgarland/typescript-vim'
+
+"Run :PlugInstall to actualize plugins
+
+" Initialize plugin system
+call plug#end()
+
 syntax on
 filetype plugin indent on
 map <C-n> :NERDTreeToggle<CR>
@@ -14,17 +31,22 @@ autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 let g:jsx_ext_required = 0
 
+" set filetypes as typescriptreact
+autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
+
 "MatchTagAlways silent run
 if !( has( 'python' ) || has( 'python3' ) )
   let g:loaded_matchtagalways = 1
 endif
 
+let g:mta_use_matchparen_group = 1
 let g:mta_filetypes = {
       \ 'html' : 1,
       \ 'xhtml' : 1,
       \ 'xml' : 1,
       \ 'jinja' : 1,
-      \ 'javascript.jsx' : 1,
+      \ 'javascript' : 1,
+      \ 'javascriptreact': 1,
       \}
 
 imap <C-esc> <esc>:q<CR>
@@ -62,14 +84,17 @@ nmap <F2> :NERDTreeFocus<CR>
 "set statusline+=%{SyntasticStatuslineFlag()}
 "set statusline+=%*
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_javascript_checkers = ['eslint']
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_open = 1
+"let g:syntastic_check_on_wq = 0
+"let g:syntastic_javascript_checkers = ['eslint']
+"
 "let g:syntastic_javascript_eslint_exec = 'eslint_d'
 
-let g:syntastic_java_javac_classpath="build/classes:lib/*.jar"
+"let g:syntastic_java_javac_classpath="build/classes:lib/*.jar"
+
+filetype indent plugin on
 
 
 "CtrlP
@@ -85,8 +110,13 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-k> <C-w>k
 nnoremap <C-j> <C-w>j
 
-colorscheme molokai
-hi Visual ctermbg=240
-hi Normal ctermbg=0
-hi Comment ctermfg=243
-hi MatchParen ctermfg=208  ctermbg=240
+set t_Co=256   " This is may or may not needed.
+
+set background=light
+colorscheme PaperColor
+"set t_Co=256
+"colorscheme molokai
+"hi Visual ctermbg=240
+"hi Normal ctermbg=0
+"hi Comment ctermfg=243
+hi MatchParen ctermbg=255 ctermfg=208 cterm=bold
